@@ -134,11 +134,30 @@ namespace Back_In_Time_Photo
                                Convert.ToString(todays_images_date[current_pic_index].Year) + 
                                " (" + Convert.ToString(todays_images_date[current_pic_index].Hour) + ":" + 
                                Convert.ToString(todays_images_date[current_pic_index].Minute) + ")";
+
+                //If only one image, hide the navigation buttons
+                if (todays_images.Count == 1)
+                {
+                    cmdNextImg.Visible = false;
+                    cmdPrevImg.Visible = false;
+                }
+
+                //If multiple image, show the navigation buttons
+                else
+                {
+                    cmdNextImg.Visible = true;
+                    cmdPrevImg.Visible = true;
+                }
             }
 
             //Otherwise, display error that no memories exist for today
             else
             {
+
+                //Remove existing image from the picture box
+                pictureBox1.Image = null;
+
+                //Display message
                 lblDate.Text = "No memories to view today.";
             }
         }
