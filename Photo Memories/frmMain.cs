@@ -7,7 +7,6 @@ using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
-using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
@@ -20,18 +19,18 @@ namespace Photo_Memories
 {
     public partial class frmMain : Form
     {
-        int current_pic_index;      //Integer to store currently displayed picture index
 
-        const string default_dir = @"G:\Pictures\Photos";
+        //String to store default directory
+        string default_dir = Environment.GetEnvironmentVariable("USERPROFILE") + @"\Pictures\";
 
         bool refreshing_files = false;
         bool refresh_try_cache = true;
+        int current_pic_index;                                      //Integer to store currently displayed picture index
 
-        List<image_item> todays_images = new List<image_item>();
+        config_class config = new config_class();                   //Object used to store the config
+        List<image_item> todays_images = new List<image_item>();    //List used to store todays images
         List<image_item> images = new List<image_item>();           //Image item list which stores image details for images in
                                                                     //the directory
-
-        config_class config = new config_class();
 
         public frmMain()
         {
@@ -132,9 +131,16 @@ namespace Photo_Memories
             if(todays_images.Count > 0)
             {
 
-                //Load the image into the picture box
-                pictureBox1.ImageLocation = todays_images[current_pic_index].fileinfo.FullName;
-                pictureBox1.Load();
+                //Attempt to load the image
+                try
+                {
+                    //Load the image into the picture box
+                    pictureBox1.ImageLocation = todays_images[current_pic_index].fileinfo.FullName;
+                    pictureBox1.Load();
+                    Debug.WriteLine(pictureBox1.ImageLocation);
+                }
+
+                catch { }
 
                 //Set window title to the filename of the picture
                 this.Text = todays_images[current_pic_index].fileinfo.Name;
