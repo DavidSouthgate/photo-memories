@@ -188,11 +188,16 @@ namespace Photo_Memories
             //Load the config
             config_load();
 
-            //Output message that the program is loading 
-            lblDate.Text = "Loading...";
+            //If the background worker is not already doing a refresh, start a refresh
+            if (!bgw_refresh_files.IsBusy)
+            {
 
-            //Start background worker to load images
-            this.bgw_refresh_files.RunWorkerAsync();
+                //Output message that the program is loading 
+                lblDate.Text = "Loading...";
+
+                //Start background worker to load images
+                bgw_refresh_files.RunWorkerAsync();
+            }
         }
 
         /// <summary>
@@ -347,14 +352,19 @@ namespace Photo_Memories
         /// </summary>
         private void refresh()
         {
-            cmdRefresh.Text = "Refreshing";
 
-            refresh_try_cache = false;
+            //If the background worker is not already doing a refresh, start a refresh
+            if(!bgw_refresh_files.IsBusy)
+            {
+                cmdRefresh.Text = "Refreshing";
 
-            //Start background worker to refresh files
-            this.bgw_refresh_files.RunWorkerAsync();
+                refresh_try_cache = false;
 
-            refreshing_files = true;
+                //Start background worker to refresh files
+                bgw_refresh_files.RunWorkerAsync();
+
+                refreshing_files = true;
+            }
         }
 
         /// <summary>
