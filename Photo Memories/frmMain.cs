@@ -21,7 +21,8 @@ namespace Photo_Memories
     public partial class frmMain : Form
     {
         int current_pic_index;      //Integer to store currently displayed picture index
-        string directory = @"G:\Pictures\Photos";
+
+        const string default_dir = @"G:\Pictures\Photos";
 
         bool refreshing_files = false;
         bool refresh_try_cache = true;
@@ -30,6 +31,8 @@ namespace Photo_Memories
         List<DateTime> todays_images_date = new List<DateTime>();
         List<image_item> images = new List<image_item>();           //Image item list which stores image details for images in
                                                                     //the directory
+
+        config_class config = new config_class();
 
         public frmMain()
         {
@@ -47,6 +50,17 @@ namespace Photo_Memories
             public FileInfo fileinfo { get; set; }
             public DateTime datetime { get; set; }
         }
+
+        /// <summary>
+        /// Class used for config
+        /// </summary>
+        public class config_class
+        {
+            public string directory { get; set; }
+        }
+
+
+
 
         /// <summary>
         /// Get the datetime from an image with a given path
@@ -171,6 +185,9 @@ namespace Photo_Memories
             //Rearrange ui elements on the form using the forms current size
             ui();
 
+            //Load the config
+            config_load();
+
             //Output message that the program is loading 
             lblDate.Text = "Loading...";
 
@@ -254,9 +271,80 @@ namespace Photo_Memories
         }
 
         //=============================================================
+        // USED FOR CONFIG
+        //=============================================================
+
+        /// <summary>
+        /// Loads the config. If loading the config fails, a new config file is created with default values.
+        /// </summary>
+        private void config_load()
+        {
+            try
+            {
+                //Declare variable used to open imagecache.json file
+                StreamReader sr_config;
+
+                //Open config.json file
+                sr_config = new StreamReader(Application.StartupPath + @"\config.json");
+
+                //Declare STRING to store contents of config.json
+                string config_json = sr_config.ReadToEnd();
+
+                //Load json object to config
+                config = JsonConvert.DeserializeObject<config_class>(config_json);
+
+                //Close file
+                sr_config.Close();
+            }
+
+            catch
+            {
+                config = new config_class();
+                config.directory = default_dir;
+                config_write();
+            }
+        }
+
+        /// <summary>
+        /// Write the config to the config file
+        /// </summary>
+        private void config_write()
+        {
+
+            //Attempt to write to config file
+            try
+            {
+
+                //Declare variable used to write config.json
+                StreamWriter sw_config;
+
+                //Start writing to config.json file
+                sw_config = new StreamWriter(Application.StartupPath + @"\config.json");
+
+                //Generate JSON string from config
+                string config_json = JsonConvert.SerializeObject(config);
+
+                //Write JSON string to file
+                sw_config.Write(config_json);
+
+                //Close file
+                sw_config.Close();
+            }
+
+            //If error writing to config file. Give debug error.
+            catch
+            {
+                Debug.WriteLine("Error writing to config");
+            }
+        }
+
+        //=============================================================
         // USED FOR REFRESHING FILES AND IMAGES
         //=============================================================
 
+        /// <summary>
+        /// Refresh images without looking at the cache
+        /// </summary>
         private void refresh()
         {
             cmdRefresh.Text = "Refreshing";
@@ -275,7 +363,7 @@ namespace Photo_Memories
         private void refresh_files()
         {
             //Get files with the valid file extension
-            var files = Directory.EnumerateFiles(directory,
+            var files = Directory.EnumerateFiles(config.directory,
                                                  "*.*",
                                                  SearchOption.AllDirectories).Where(
                                                     s => s.ToLower().EndsWith(".png") ||
@@ -467,7 +555,7 @@ namespace Photo_Memories
             {
                 displayPanel(panelSettings);
                 lblDate.Text = "Settings";
-                cmdSettingsSource.Text = directory;
+                cmdSettingsSource.Text = config.directory;
             }
 
             //Otherwise, load the picture panl
@@ -498,10 +586,16 @@ namespace Photo_Memories
             if(fbd.SelectedPath != "")
             {
                 //Store the selected directory to the variable
-                directory = fbd.SelectedPath;
+                config.directory = fbd.SelectedPath;
 
                 //Set the source button text to the new directory
-                cmdSettingsSource.Text = directory;
+                cmdSettingsSource.Text = config.directory;
+
+                //Write config
+                config_write();
+
+                //Refresh files
+                refresh();
             }
         }
     }
