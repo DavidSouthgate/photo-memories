@@ -14,17 +14,17 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Newtonsoft.Json;
 using System.Threading;
+using System.Diagnostics;
 
 namespace Back_In_Time_Photo
 {
     public partial class frmMain : Form
     {
+        int current_pic_index;      //Integer to store currently displayed picture index
         List<FileInfo> todays_images = new List<FileInfo>();
         List<DateTime> todays_images_date = new List<DateTime>();
-        int current_pic_index;
-
-        List<image_item> images = new List<image_item>();
-
+        List<image_item> images = new List<image_item>();           //Image item list which stores image details for images in
+                                                                    //the directory
 
         public frmMain()
         {
@@ -34,7 +34,9 @@ namespace Back_In_Time_Photo
             this.MinimumSize = new Size(370, 570);
         }
 
-        //Class used to store details about the images in the folder
+        /// <summary>
+        /// Class used to store details about the images in the folder
+        /// </summary>
         public class image_item
         {
             public FileInfo fileinfo { get; set; }
@@ -136,13 +138,6 @@ namespace Back_In_Time_Photo
             }
         }
 
-
-
-
-
-
-
-
         /// <summary>
         /// Lookup the directory with the photos and rebuild photo cache
         /// </summary>
@@ -162,6 +157,9 @@ namespace Back_In_Time_Photo
 
                 //Load file info for file
                 FileInfo file_info = new FileInfo(file);
+
+                //Write debug line
+                Debug.WriteLine("Examining: " + file_info.FullName);
 
                 //New instance of date time to store image date
                 DateTime image_date;
@@ -249,8 +247,7 @@ namespace Back_In_Time_Photo
         }
 
         /// <summary>
-        /// Runs when the form has been loaded. Will rearrange ui elements based on
-        /// the current size of the form
+        /// Runs when the form has been loaded. Will rearrange ui elements based on the current size of the form
         /// </summary>
         private void frmMain_Load(object sender, EventArgs e)
         {
@@ -261,36 +258,30 @@ namespace Back_In_Time_Photo
             //Output message that the program is loading 
             lblDate.Text = "Loading...";
 
-            //Start background worker
-            this.backgroundWorker1.RunWorkerAsync();
+            //Start background worker to load images
+            this.bgw_load_images.RunWorkerAsync();
         }
 
-        private void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
+        /// <summary>
+        /// Background worker to load image details by either reading from the cache file or by examining the directory
+        /// </summary>
+        private void bgw_load_images_DoWork(object sender, DoWorkEventArgs e)
         {
             load_images();
         }
 
-        private void backgroundWorker1_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        private void bgw_load_images_ProgressChanged(object sender, ProgressChangedEventArgs e)
+        {
+
+        }
+
+        /// <summary>
+        /// Once image load has completed. Display a picture.
+        /// </summary>
+        private void bgw_load_images_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
             show_picture(0);
         }
-
-        private void backgroundWorker1_ProgressChanged(object sender, ProgressChangedEventArgs e)
-        {
-            lblDate.Text = "Loading... " + Convert.ToString(e.ProgressPercentage);
-        }
-
-
-
-
-
-
-
-
-
-
-
-
 
         /// <summary>
         /// Command button to display the next picture
