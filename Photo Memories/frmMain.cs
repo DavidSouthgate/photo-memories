@@ -128,13 +128,12 @@ namespace Back_In_Time_Photo
 
                 //Set label to display date of the picture in format:
                 //      Friday, 1 Janurary 2016 (12:00)
-                /*lblDate.Text = Convert.ToString(todays_images_date[current_pic_index].DayOfWeek) + ", " +
+                lblDate.Text = Convert.ToString(todays_images_date[current_pic_index].DayOfWeek) + ", " +
                                Convert.ToString(todays_images_date[current_pic_index].Day) + " " +
                                int_month_to_text(Convert.ToInt16(todays_images_date[current_pic_index].Month)) + " " +
                                Convert.ToString(todays_images_date[current_pic_index].Year) + 
                                " (" + Convert.ToString(todays_images_date[current_pic_index].Hour) + ":" + 
-                               Convert.ToString(todays_images_date[current_pic_index].Minute) + ")";*/
-                lblDate.Text = todays_images[current_pic_index].Name;
+                               Convert.ToString(todays_images_date[current_pic_index].Minute) + ")";
             }
 
             //Otherwise, display error that no memories exist for today

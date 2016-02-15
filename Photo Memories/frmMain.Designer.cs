@@ -30,6 +30,7 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmMain));
             this.panelInfo = new System.Windows.Forms.Panel();
+            this.cmdRefresh = new System.Windows.Forms.Button();
             this.cmdSettings = new System.Windows.Forms.Button();
             this.lblDate = new System.Windows.Forms.Label();
             this.bgw_load_images = new System.ComponentModel.BackgroundWorker();
@@ -40,7 +41,6 @@
             this.panelSettings = new System.Windows.Forms.Panel();
             this.cmdSettingsSource = new System.Windows.Forms.Button();
             this.lblSettingsSource = new System.Windows.Forms.Label();
-            this.cmdRefresh = new System.Windows.Forms.Button();
             this.bgw_refresh_files = new System.ComponentModel.BackgroundWorker();
             this.panelInfo.SuspendLayout();
             this.panelPicture.SuspendLayout();
@@ -59,6 +59,23 @@
             this.panelInfo.Name = "panelInfo";
             this.panelInfo.Size = new System.Drawing.Size(530, 63);
             this.panelInfo.TabIndex = 4;
+            // 
+            // cmdRefresh
+            // 
+            this.cmdRefresh.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.cmdRefresh.FlatAppearance.BorderSize = 0;
+            this.cmdRefresh.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(76)))), ((int)(((byte)(76)))), ((int)(((byte)(76)))));
+            this.cmdRefresh.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(53)))), ((int)(((byte)(53)))), ((int)(((byte)(53)))));
+            this.cmdRefresh.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.cmdRefresh.Font = new System.Drawing.Font("Microsoft Sans Serif", 4F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cmdRefresh.ForeColor = System.Drawing.Color.White;
+            this.cmdRefresh.Location = new System.Drawing.Point(398, 0);
+            this.cmdRefresh.Name = "cmdRefresh";
+            this.cmdRefresh.Size = new System.Drawing.Size(63, 63);
+            this.cmdRefresh.TabIndex = 2;
+            this.cmdRefresh.Text = "Refresh";
+            this.cmdRefresh.UseVisualStyleBackColor = true;
+            this.cmdRefresh.Click += new System.EventHandler(this.cmdRefresh_Click);
             // 
             // cmdSettings
             // 
@@ -174,23 +191,6 @@
             this.lblSettingsSource.TabIndex = 0;
             this.lblSettingsSource.Text = "Source";
             // 
-            // cmdRefresh
-            // 
-            this.cmdRefresh.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.cmdRefresh.FlatAppearance.BorderSize = 0;
-            this.cmdRefresh.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(76)))), ((int)(((byte)(76)))), ((int)(((byte)(76)))));
-            this.cmdRefresh.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(53)))), ((int)(((byte)(53)))), ((int)(((byte)(53)))));
-            this.cmdRefresh.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.cmdRefresh.Font = new System.Drawing.Font("Microsoft Sans Serif", 4F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cmdRefresh.ForeColor = System.Drawing.Color.White;
-            this.cmdRefresh.Location = new System.Drawing.Point(398, 0);
-            this.cmdRefresh.Name = "cmdRefresh";
-            this.cmdRefresh.Size = new System.Drawing.Size(63, 63);
-            this.cmdRefresh.TabIndex = 2;
-            this.cmdRefresh.Text = "Refresh";
-            this.cmdRefresh.UseVisualStyleBackColor = true;
-            this.cmdRefresh.Click += new System.EventHandler(this.cmdRefresh_Click);
-            // 
             // bgw_refresh_files
             // 
             this.bgw_refresh_files.DoWork += new System.ComponentModel.DoWorkEventHandler(this.bgw_refresh_files_DoWork);
@@ -202,7 +202,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
-            this.ClientSize = new System.Drawing.Size(531, 817);
+            this.ClientSize = new System.Drawing.Size(555, 817);
             this.Controls.Add(this.panelSettings);
             this.Controls.Add(this.panelPicture);
             this.Controls.Add(this.panelInfo);
