@@ -29,9 +29,12 @@ namespace Back_In_Time_Photo
         public frmMain()
         {
             InitializeComponent();
+
+            //Set the minimum size that the form can be
             this.MinimumSize = new Size(370, 570);
         }
 
+        //Class used to store details about the images in the folder
         public class image_item
         {
             public FileInfo fileinfo { get; set; }
@@ -84,9 +87,9 @@ namespace Back_In_Time_Photo
         }
 
         /// <summary>
-        /// Display either the next or the previous image
+        /// Display another image by using an integer to move forward by x images
         /// </summary>
-        /// <param name="forward_by">Amount to proceed by. E.g. 1 = Next, -1 = Previous</param>
+        /// <param name="forward_by">Amount to proceed by. E.g. 1 = Next, -1 = Previous, 0 = Refresh</param>
         private void show_picture(int forward_by)
         {
 
@@ -116,7 +119,8 @@ namespace Back_In_Time_Photo
                 //Set window title to the filename of the picture
                 this.Text = todays_images[current_pic_index].Name;
 
-                //Set label to display date of the picture
+                //Set label to display date of the picture in format:
+                //      Friday, 1 Janurary 2016 (12:00)
                 lblDate.Text = Convert.ToString(todays_images_date[current_pic_index].DayOfWeek) + ", " +
                                Convert.ToString(todays_images_date[current_pic_index].Day) + " " +
                                int_month_to_text(Convert.ToInt16(todays_images_date[current_pic_index].Month)) + " " +
@@ -125,6 +129,7 @@ namespace Back_In_Time_Photo
                                Convert.ToString(todays_images_date[current_pic_index].Minute) + ")";
             }
 
+            //Otherwise, display error that no memories exist for today
             else
             {
                 lblDate.Text = "No memories to view today.";
@@ -175,9 +180,13 @@ namespace Back_In_Time_Photo
             }
         }
 
+        /// <summary>
+        /// Loads images from either the cache file or by examining the folder
+        /// </summary>
         private void load_images()
         {
 
+            //DEV: today is a specific date for development
             DateTime today = new DateTime(2016, 2, 16);
 
             //Attempt to load the image cache
@@ -199,9 +208,11 @@ namespace Back_In_Time_Photo
                 sr_cache.Close();
             }
 
-            //If error loading cache
+            //If error loading cache, examine folder
             catch
             {
+
+                //Examine the folder
                 refresh_images();
 
                 //Declare variable used to write imagecache.json
@@ -220,41 +231,38 @@ namespace Back_In_Time_Photo
                 sw_cache.Close();
             }
 
+            //For every image in images
             foreach (var image in images)
             {
+
+                //If image was taken 'on this day in history'
                 if (image.datetime.Year != today.Year &&
                     image.datetime.Month == today.Month &&
                     image.datetime.Day == today.Day)
                 {
+
+                    //Add details to arrays
                     todays_images.Add(image.fileinfo);
                     todays_images_date.Add(image.datetime);
                 }
             }
         }
 
-
-
-
-
         /// <summary>
         /// Runs when the form has been loaded. Will rearrange ui elements based on
         /// the current size of the form
         /// </summary>
-        private void Form1_Load(object sender, EventArgs e)
+        private void frmMain_Load(object sender, EventArgs e)
         {
+
+            //Rearrange ui elements on the form using the forms current size
             ui();
 
+            //Output message that the program is loading 
             lblDate.Text = "Loading...";
+
+            //Start background worker
             this.backgroundWorker1.RunWorkerAsync();
-        }
-
-        /// <summary>
-        /// Runs when the form has been shown. Will load images either from the directory
-        /// or from the cache
-        /// </summary>
-        private void frmMain_Shown(object sender, EventArgs e)
-        {
-
         }
 
         private void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
@@ -304,7 +312,7 @@ namespace Back_In_Time_Photo
         /// Runs when the form has been resized. Will rearrange ui elements based on
         /// the current size of the form
         /// </summary>
-        private void Form1_Resize(object sender, EventArgs e)
+        private void frmMain_Resize(object sender, EventArgs e)
         {
             ui();
         }
@@ -329,7 +337,7 @@ namespace Back_In_Time_Photo
             pictureBox1.Height = this.ClientSize.Height - panelInfo.Height;
             pictureBox1.Width = this.ClientSize.Width;
 
-            //Positin info panel
+            //Position info panel
             panelInfo.Top = 0;
             panelInfo.Left = 0;
             panelInfo.Width = this.ClientSize.Width;
