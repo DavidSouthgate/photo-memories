@@ -362,42 +362,61 @@ namespace Photo_Memories
         /// </summary>
         private void refresh_files()
         {
-            //Get files with the valid file extension
-            var files = Directory.EnumerateFiles(config.directory,
-                                                 "*.*",
-                                                 SearchOption.AllDirectories).Where(
-                                                    s => s.ToLower().EndsWith(".png") ||
-                                                    s.ToLower().EndsWith(".jpeg") ||
-                                                    s.ToLower().EndsWith(".jpg"));
 
-            //Clear images list
-            images.Clear();
-
-            //For each file in directory
-            foreach (var file in files)
+            //Try reading the files
+            try
             {
 
-                //Load file info for file
-                FileInfo file_info = new FileInfo(file);
+                //Get files with the valid file extension
+                var files = Directory.EnumerateFiles(config.directory,
+                                                     "*.*",
+                                                     SearchOption.AllDirectories).Where(
+                                                        s => s.ToLower().EndsWith(".png") ||
+                                                        s.ToLower().EndsWith(".jpeg") ||
+                                                        s.ToLower().EndsWith(".jpg"));
 
-                //Write debug line
-                Debug.WriteLine("Examining: " + file_info.FullName);
+                //Clear images list
+                images.Clear();
 
-                //New instance of date time to store image date
-                DateTime image_date;
-
-                //Attempt to get the image date
-                try { image_date = GetDateTakenFromImage(file_info.FullName); }
-
-                //If error, use last modified date as date
-                catch { image_date = file_info.LastWriteTime; }
-
-                images.Add(new image_item
+                //For each file in directory
+                foreach (var file in files)
                 {
-                    fileinfo = file_info,
-                    datetime = image_date
-                });
+
+                    //Load file info for file
+                    FileInfo file_info = new FileInfo(file);
+
+                    //Write debug line
+                    Debug.WriteLine("Examining: " + file_info.FullName);
+
+                    //New instance of date time to store image date
+                    DateTime image_date;
+
+                    //Attempt to get the image date
+                    try { image_date = GetDateTakenFromImage(file_info.FullName); }
+
+                    //If error, use last modified date as date
+                    catch { image_date = file_info.LastWriteTime; }
+
+                    images.Add(new image_item
+                    {
+                        fileinfo = file_info,
+                        datetime = image_date
+                    });
+                }
             }
+
+            //If error reading the files, throw error message
+            catch
+            {
+                MessageBox.Show("Error (1) Loading Directory. Does it exist?");
+                pictureBox1.Image = null;
+                pictureBox1.Load();
+
+                //Purge cache and reload
+                images_cache_clear();
+                refresh_file_or_cache();
+            }
+
         }
 
         /// <summary>
@@ -431,20 +450,8 @@ namespace Photo_Memories
                 //Examine the folder
                 refresh_files();
 
-                //Declare variable used to write imagecache.json
-                StreamWriter sw_cache;
-
-                //Start writing to imagecache.json file
-                sw_cache = new StreamWriter(Application.StartupPath + @"\imagecache.json");
-
-                //Generate JSON string from images
-                string images_json = JsonConvert.SerializeObject(images);
-
-                //Write JSON string to file
-                sw_cache.Write(images_json);
-
-                //Close file
-                sw_cache.Close();
+                //Write to cache file
+                images_cache_write();
             }
 
         }
@@ -476,6 +483,34 @@ namespace Photo_Memories
                     todays_images_date.Add(image.datetime);
                 }
             }
+        }
+
+        private void images_cache_clear()
+        {
+
+            //Clear old image cache
+            images.Clear();
+
+            //Write this change to the cache file
+            images_cache_write();
+        }
+
+        private void images_cache_write()
+        {
+            //Declare variable used to write imagecache.json
+            StreamWriter sw_cache;
+
+            //Start writing to imagecache.json file
+            sw_cache = new StreamWriter(Application.StartupPath + @"\imagecache.json");
+
+            //Generate JSON string from images
+            string images_json = JsonConvert.SerializeObject(images);
+
+            //Write JSON string to file
+            sw_cache.Write(images_json);
+
+            //Close file
+            sw_cache.Close();
         }
 
         /// <summary>
