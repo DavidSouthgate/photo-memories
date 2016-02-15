@@ -7,8 +7,8 @@
     <ProjectGuid>{47FA9DE5-7B7F-4654-881A-1D7B3CBF8B71}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Back_In_Time_Photo</RootNamespace>
-    <AssemblyName>Back In Time Photo</AssemblyName>
+    <RootNamespace>Photo_Memories</RootNamespace>
+    <AssemblyName>Photo Memories</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
