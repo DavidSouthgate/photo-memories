@@ -27,8 +27,7 @@ namespace Photo_Memories
         bool refreshing_files = false;
         bool refresh_try_cache = true;
 
-        List<FileInfo> todays_images = new List<FileInfo>();
-        List<DateTime> todays_images_date = new List<DateTime>();
+        List<image_item> todays_images = new List<image_item>();
         List<image_item> images = new List<image_item>();           //Image item list which stores image details for images in
                                                                     //the directory
 
@@ -134,20 +133,20 @@ namespace Photo_Memories
             {
 
                 //Load the image into the picture box
-                pictureBox1.ImageLocation = todays_images[current_pic_index].FullName;
+                pictureBox1.ImageLocation = todays_images[current_pic_index].fileinfo.FullName;
                 pictureBox1.Load();
 
                 //Set window title to the filename of the picture
-                this.Text = todays_images[current_pic_index].Name;
+                this.Text = todays_images[current_pic_index].fileinfo.Name;
 
                 //Set label to display date of the picture in format:
                 //      Friday, 1 Janurary 2016 (12:00)
-                lblDate.Text = Convert.ToString(todays_images_date[current_pic_index].DayOfWeek) + ", " +
-                               Convert.ToString(todays_images_date[current_pic_index].Day) + " " +
-                               int_month_to_text(Convert.ToInt16(todays_images_date[current_pic_index].Month)) + " " +
-                               Convert.ToString(todays_images_date[current_pic_index].Year) + 
-                               " (" + Convert.ToString(todays_images_date[current_pic_index].Hour) + ":" + 
-                               Convert.ToString(todays_images_date[current_pic_index].Minute) + ")";
+                lblDate.Text = Convert.ToString(todays_images[current_pic_index].datetime.DayOfWeek) + ", " +
+                               Convert.ToString(todays_images[current_pic_index].datetime.Day) + " " +
+                               int_month_to_text(Convert.ToInt16(todays_images[current_pic_index].datetime.Month)) + " " +
+                               Convert.ToString(todays_images[current_pic_index].datetime.Year) + 
+                               " (" + Convert.ToString(todays_images[current_pic_index].datetime.Hour) + ":" + 
+                               Convert.ToString(todays_images[current_pic_index].datetime.Minute) + ")";
 
                 //If only one image, hide the navigation buttons
                 if (todays_images.Count == 1)
@@ -476,7 +475,6 @@ namespace Photo_Memories
 
             //Clear todays images
             todays_images.Clear();
-            todays_images_date.Clear();
 
             //For every image in images
             foreach (var image in images)
@@ -488,9 +486,12 @@ namespace Photo_Memories
                     image.datetime.Day == today.Day)
                 {
 
-                    //Add details to arrays
-                    todays_images.Add(image.fileinfo);
-                    todays_images_date.Add(image.datetime);
+                    //Add details to todays images
+                    todays_images.Add(new image_item
+                    {
+                        fileinfo = image.fileinfo,
+                        datetime = image.datetime
+                    });
                 }
             }
         }
