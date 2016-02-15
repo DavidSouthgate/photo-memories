@@ -21,6 +21,7 @@ namespace Back_In_Time_Photo
     public partial class frmMain : Form
     {
         int current_pic_index;      //Integer to store currently displayed picture index
+        string directory = @"G:\Pictures\Photos";      
         List<FileInfo> todays_images = new List<FileInfo>();
         List<DateTime> todays_images_date = new List<DateTime>();
         List<image_item> images = new List<image_item>();           //Image item list which stores image details for images in
@@ -144,7 +145,7 @@ namespace Back_In_Time_Photo
         private void refresh_images()
         {
             //Get files with the valid file extension
-            var files = Directory.EnumerateFiles(@"G:\Pictures\Photos",
+            var files = Directory.EnumerateFiles(directory,
                                                  "*.*",
                                                  SearchOption.AllDirectories).Where(
                                                     s => s.ToLower().EndsWith(".png") ||
@@ -313,25 +314,98 @@ namespace Back_In_Time_Photo
         /// </summary>
         private void ui()
         {
+            //Position picture panel
+            panelPicture.Top = panelInfo.Height;
+            panelPicture.Left = 0;
+            panelPicture.Height = this.ClientSize.Height - panelInfo.Height;
+            panelPicture.Width = this.ClientSize.Width;
+
+
+            //Position settings panel
+            panelSettings.Top = panelInfo.Height;
+            panelSettings.Left = 0;
+            panelSettings.Height = this.ClientSize.Height - panelInfo.Height;
+            panelSettings.Width = this.ClientSize.Width;
+
+            //
+            cmdSettingsSource.Width = panelSettings.Width - (2 * cmdSettingsSource.Left);
+
 
             //Possition previous image button
             cmdPrevImg.Left = 0;
-            cmdPrevImg.Top = this.ClientSize.Height / 2 - cmdPrevImg.Height / 2;
+            cmdPrevImg.Top = this.ClientSize.Height / 2 - cmdPrevImg.Height / 2 - panelInfo.Height;
 
             //Possition next image button
             cmdNextImg.Left = this.ClientSize.Width - cmdNextImg.Width;
-            cmdNextImg.Top = this.ClientSize.Height / 2 - cmdNextImg.Height / 2;
+            cmdNextImg.Top = this.ClientSize.Height / 2 - cmdNextImg.Height / 2 - panelInfo.Height;
 
             //Position picture box
-            pictureBox1.Top = panelInfo.Height;
+            pictureBox1.Top = 0;
             pictureBox1.Left = 0;
-            pictureBox1.Height = this.ClientSize.Height - panelInfo.Height;
-            pictureBox1.Width = this.ClientSize.Width;
+            pictureBox1.Height = panelPicture.Height;
+            pictureBox1.Width = panelPicture.Width;
 
             //Position info panel
             panelInfo.Top = 0;
             panelInfo.Left = 0;
             panelInfo.Width = this.ClientSize.Width;
+
+            //Settings button
+            cmdSettings.Top = 0;
+            cmdSettings.Left = this.ClientSize.Width - cmdSettings.Width;
+        }
+
+
+
+
+        private void cmdSettings_Click(object sender, EventArgs e)
+        {
+            if(panelPicture.Visible)
+            {
+                displayPanel(panelSettings);
+                lblDate.Text = "Settings";
+                cmdSettingsSource.Text = directory;
+            }
+
+            else
+            {
+                displayPanel(panelPicture);
+                show_picture(0);
+            }
+        }
+
+        private void displayPanel(Panel panel)
+        {
+            panelPicture.Visible = false;
+            panelSettings.Visible = false;
+            panel.Visible = true;
+        }
+
+        //=============================================================
+        // SETTINGS PANEL
+        //=============================================================
+
+        /// <summary>
+        /// Source button (in settings) clicked
+        /// </summary>
+        private void cmdSettingsSource_Click(object sender, EventArgs e)
+        {
+
+            //Create a new file browser dialog
+            FolderBrowserDialog fbd = new FolderBrowserDialog();
+
+            //Show the file browser dialog and get the result
+            DialogResult result = fbd.ShowDialog();
+
+            //Validate path
+            if(fbd.SelectedPath != "")
+            {
+                //Store the selected directory to the variable
+                directory = fbd.SelectedPath;
+
+                //Set the source button text to the new directory
+                cmdSettingsSource.Text = directory;
+            }
         }
     }
 }
