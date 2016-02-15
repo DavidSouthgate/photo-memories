@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Back_In_Time_Photo
+namespace Photo_Memories
 {
     static class Program
     {

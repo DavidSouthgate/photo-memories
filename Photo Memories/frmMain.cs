@@ -16,7 +16,7 @@ using Newtonsoft.Json;
 using System.Threading;
 using System.Diagnostics;
 
-namespace Back_In_Time_Photo
+namespace Photo_Memories
 {
     public partial class frmMain : Form
     {

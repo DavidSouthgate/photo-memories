@@ -1,4 +1,4 @@
-﻿namespace Back_In_Time_Photo
+﻿namespace Photo_Memories
 {
     partial class frmMain
     {
