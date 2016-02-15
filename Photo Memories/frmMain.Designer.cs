@@ -40,6 +40,8 @@
             this.panelSettings = new System.Windows.Forms.Panel();
             this.cmdSettingsSource = new System.Windows.Forms.Button();
             this.lblSettingsSource = new System.Windows.Forms.Label();
+            this.cmdRefresh = new System.Windows.Forms.Button();
+            this.bgw_refresh_files = new System.ComponentModel.BackgroundWorker();
             this.panelInfo.SuspendLayout();
             this.panelPicture.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -49,6 +51,7 @@
             // panelInfo
             // 
             this.panelInfo.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(23)))), ((int)(((byte)(23)))), ((int)(((byte)(24)))));
+            this.panelInfo.Controls.Add(this.cmdRefresh);
             this.panelInfo.Controls.Add(this.cmdSettings);
             this.panelInfo.Controls.Add(this.lblDate);
             this.panelInfo.Location = new System.Drawing.Point(0, 0);
@@ -84,12 +87,6 @@
             this.lblDate.Size = new System.Drawing.Size(93, 30);
             this.lblDate.TabIndex = 0;
             this.lblDate.Text = "lblDate";
-            // 
-            // bgw_load_images
-            // 
-            this.bgw_load_images.DoWork += new System.ComponentModel.DoWorkEventHandler(this.bgw_load_images_DoWork);
-            this.bgw_load_images.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.bgw_load_images_ProgressChanged);
-            this.bgw_load_images.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.bgw_load_images_RunWorkerCompleted);
             // 
             // panelPicture
             // 
@@ -177,6 +174,29 @@
             this.lblSettingsSource.TabIndex = 0;
             this.lblSettingsSource.Text = "Source";
             // 
+            // cmdRefresh
+            // 
+            this.cmdRefresh.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.cmdRefresh.FlatAppearance.BorderSize = 0;
+            this.cmdRefresh.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(76)))), ((int)(((byte)(76)))), ((int)(((byte)(76)))));
+            this.cmdRefresh.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(53)))), ((int)(((byte)(53)))), ((int)(((byte)(53)))));
+            this.cmdRefresh.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.cmdRefresh.Font = new System.Drawing.Font("Microsoft Sans Serif", 4F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cmdRefresh.ForeColor = System.Drawing.Color.White;
+            this.cmdRefresh.Location = new System.Drawing.Point(398, 0);
+            this.cmdRefresh.Name = "cmdRefresh";
+            this.cmdRefresh.Size = new System.Drawing.Size(63, 63);
+            this.cmdRefresh.TabIndex = 2;
+            this.cmdRefresh.Text = "Refresh";
+            this.cmdRefresh.UseVisualStyleBackColor = true;
+            this.cmdRefresh.Click += new System.EventHandler(this.cmdRefresh_Click);
+            // 
+            // bgw_refresh_files
+            // 
+            this.bgw_refresh_files.DoWork += new System.ComponentModel.DoWorkEventHandler(this.bgw_refresh_files_DoWork);
+            this.bgw_refresh_files.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.bgw_refresh_files_ProgressChanged);
+            this.bgw_refresh_files.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.bgw_refresh_files_RunWorkerCompleted);
+            // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
@@ -214,6 +234,8 @@
         private System.Windows.Forms.Panel panelSettings;
         private System.Windows.Forms.Button cmdSettingsSource;
         private System.Windows.Forms.Label lblSettingsSource;
+        private System.Windows.Forms.Button cmdRefresh;
+        private System.ComponentModel.BackgroundWorker bgw_refresh_files;
     }
 }
 
