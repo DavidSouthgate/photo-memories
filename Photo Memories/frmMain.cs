@@ -298,7 +298,7 @@ namespace Photo_Memories
             //Source Button
             cmdSettingsSource.Width = panelSettings.Width - (2 * cmdSettingsSource.Left);
             cmdSettingsSource.Top = draw_top;
-            cmdSettingsSource.Left = 15;
+            cmdSettingsSource.Left = 10;
 
             //Using graphics, set the size of the source button depending on the height of the text
             using (Graphics cg = CreateGraphics())
