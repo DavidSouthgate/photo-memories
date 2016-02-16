@@ -14,6 +14,7 @@ using System.Windows.Forms;
 using Newtonsoft.Json;
 using System.Threading;
 using System.Diagnostics;
+using System.Reflection;
 
 namespace Photo_Memories
 {
@@ -672,6 +673,10 @@ namespace Photo_Memories
 
                 //Set the text for the button to change the source
                 cmdSettingsSource.Text = config.source;
+
+                lblSettingsAboutInfo.Text = this.ProductName + " [Version " + this.ProductVersion + "]";
+                lblSettingsAboutInfo.Text += Environment.NewLine + FileVersionInfo.GetVersionInfo(Assembly.GetEntryAssembly().Location).LegalCopyright;
+                lblSettingsAboutInfo.Text += Environment.NewLine + FileVersionInfo.GetVersionInfo(Assembly.GetEntryAssembly().Location).CompanyName;
 
                 //Update UI for settings
                 ui_settings();
