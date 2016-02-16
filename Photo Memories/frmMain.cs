@@ -731,6 +731,7 @@ namespace Photo_Memories
                 lblSettingsAboutInfo.Text = this.ProductName + " [Version " + this.ProductVersion + "]";
                 lblSettingsAboutInfo.Text += Environment.NewLine + FileVersionInfo.GetVersionInfo(Assembly.GetEntryAssembly().Location).LegalCopyright;
                 lblSettingsAboutInfo.Text += Environment.NewLine + FileVersionInfo.GetVersionInfo(Assembly.GetEntryAssembly().Location).CompanyName;
+                lblSettingsAboutInfo.Text += Environment.NewLine + "Licenced under the MIT licence";
 
                 //Update UI for settings
                 ui_settings();
