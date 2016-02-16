@@ -185,6 +185,26 @@ namespace Photo_Memories
         }
 
         /// <summary>
+        /// Command button to display the previous picture
+        /// </summary>
+        private void cmdPrevImg_Click(object sender, EventArgs e)
+        {
+            show_picture(-1);
+        }
+
+        /// <summary>
+        /// Command button to display the next picture
+        /// </summary>
+        private void cmdNextImg_Click(object sender, EventArgs e)
+        {
+            show_picture(1);
+        }
+
+        //=============================================================
+        // Form and key events
+        //=============================================================
+
+        /// <summary>
         /// Runs when the form has been loaded. Will rearrange ui elements based on the current size of the form
         /// </summary>
         private void frmMain_Load(object sender, EventArgs e)
@@ -220,19 +240,26 @@ namespace Photo_Memories
         }
 
         /// <summary>
-        /// Command button to display the previous picture
+        /// This method is called during message preprocessing to handle command keys. Command keys are keys that always take precedence over regular input keys. 
         /// </summary>
-        private void cmdPrevImg_Click(object sender, EventArgs e)
+        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
         {
-            show_picture(-1);
-        }
 
-        /// <summary>
-        /// Command button to display the next picture
-        /// </summary>
-        private void cmdNextImg_Click(object sender, EventArgs e)
-        {
-            show_picture(1);
+            //If left key pressed, show previous picture
+            if (keyData == Keys.Left)
+            {
+                show_picture(-1);
+                return true;
+            }
+
+            //If right key pressed, show next picture
+            else if (keyData == Keys.Right)
+            {
+                show_picture(-1);
+                return true;
+            }
+
+            return base.ProcessCmdKey(ref msg, keyData);
         }
 
         //=============================================================
