@@ -226,6 +226,7 @@
             this.cmdSettings.Size = new System.Drawing.Size(42, 41);
             this.cmdSettings.TabIndex = 3;
             this.cmdSettings.UseVisualStyleBackColor = true;
+            this.cmdSettings.Click += new System.EventHandler(this.cmdSettings_Click);
             // 
             // frmMain
             // 
