@@ -110,7 +110,7 @@
             this.panelPicture.Controls.Add(this.cmdNextImg);
             this.panelPicture.Controls.Add(this.cmdPrevImg);
             this.panelPicture.Controls.Add(this.picDisplay);
-            this.panelPicture.Location = new System.Drawing.Point(327, 99);
+            this.panelPicture.Location = new System.Drawing.Point(99, 94);
             this.panelPicture.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.panelPicture.Name = "panelPicture";
             this.panelPicture.Size = new System.Drawing.Size(321, 183);
@@ -160,7 +160,7 @@
             this.panelSettings.Controls.Add(this.lblSettingsAbout);
             this.panelSettings.Controls.Add(this.cmdSettingsSource);
             this.panelSettings.Controls.Add(this.lblSettingsSource);
-            this.panelSettings.Location = new System.Drawing.Point(15, 65);
+            this.panelSettings.Location = new System.Drawing.Point(27, 144);
             this.panelSettings.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.panelSettings.Name = "panelSettings";
             this.panelSettings.Size = new System.Drawing.Size(321, 287);
