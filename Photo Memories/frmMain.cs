@@ -330,6 +330,8 @@ namespace Photo_Memories
         /// </summary>
         private void config_load()
         {
+
+            //Attempt to load config
             try
             {
                 //Declare variable used to open imagecache.json file
@@ -353,9 +355,12 @@ namespace Photo_Memories
                 //Close file
                 sr_config.Close();
             }
-
+            
+            //If error loading config, use default values
             catch
             {
+
+                //Create a new instance of config class, populate it with default values and write it to file
                 config = new config_class();
                 config.source = default_source;
                 config_write();
@@ -408,12 +413,21 @@ namespace Photo_Memories
             //If the background worker is not already doing a refresh, start a refresh
             if(!bgw_refresh_files.IsBusy)
             {
+
+                //Change the text on the refresh button to indicate that the program is currently refreshing the metadata
                 cmdRefresh.Text = "Refreshing";
 
+                //When refreshing, do not try to load data from the cache.
                 refresh_try_cache = false;
 
-                //Start background worker to refresh files
+                //Start background worker to refresh image cache
                 bgw_refresh_files.RunWorkerAsync();
+            }
+
+            //Otherwise, output debug message
+            else
+            {
+                Debug.WriteLine("The background worker is already refreshing the image cache");
             }
         }
 
