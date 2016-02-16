@@ -33,7 +33,6 @@
             this.cmdRefresh = new System.Windows.Forms.Button();
             this.cmdSettings = new System.Windows.Forms.Button();
             this.lblDate = new System.Windows.Forms.Label();
-            this.bgw_load_images = new System.ComponentModel.BackgroundWorker();
             this.panelPicture = new System.Windows.Forms.Panel();
             this.cmdNextImg = new System.Windows.Forms.Button();
             this.cmdPrevImg = new System.Windows.Forms.Button();
@@ -225,7 +224,6 @@
         #endregion
         private System.Windows.Forms.Panel panelInfo;
         private System.Windows.Forms.Label lblDate;
-        private System.ComponentModel.BackgroundWorker bgw_load_images;
         private System.Windows.Forms.Button cmdSettings;
         private System.Windows.Forms.Panel panelPicture;
         private System.Windows.Forms.PictureBox pictureBox1;
