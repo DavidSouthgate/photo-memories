@@ -231,6 +231,10 @@ namespace Photo_Memories
             show_picture(1);
         }
 
+        //=============================================================
+        // UI
+        //=============================================================
+
         /// <summary>
         /// Rearrange ui elements on the form using the current form size
         /// </summary>
@@ -242,16 +246,13 @@ namespace Photo_Memories
             panelPicture.Height = this.ClientSize.Height - panelInfo.Height;
             panelPicture.Width = this.ClientSize.Width;
 
+            //Settings button
+            cmdSettings.Top = 0;
+            cmdSettings.Left = this.ClientSize.Width - cmdSettings.Width;
 
-            //Position settings panel
-            panelSettings.Top = panelInfo.Height;
-            panelSettings.Left = 0;
-            panelSettings.Height = this.ClientSize.Height - panelInfo.Height;
-            panelSettings.Width = this.ClientSize.Width;
-
-            //
-            cmdSettingsSource.Width = panelSettings.Width - (2 * cmdSettingsSource.Left);
-
+            //Force refresh button
+            cmdRefresh.Top = 0;
+            cmdRefresh.Left = this.ClientSize.Width - cmdSettings.Width - cmdRefresh.Width;
 
             //Possition previous image button
             cmdPrevImg.Left = 0;
@@ -272,13 +273,53 @@ namespace Photo_Memories
             panelInfo.Left = 0;
             panelInfo.Width = this.ClientSize.Width;
 
-            //Settings button
-            cmdSettings.Top = 0;
-            cmdSettings.Left = this.ClientSize.Width - cmdSettings.Width;
+            ui_settings();
+        }
 
-            //Force refresh button
-            cmdRefresh.Top = 0;
-            cmdRefresh.Left = this.ClientSize.Width - cmdSettings.Width - cmdRefresh.Width;
+        /// <summary>
+        /// Rearrange settings ui elements on the form using the current form size
+        /// </summary>
+        private void ui_settings()
+        {
+
+            int draw_top = 10;
+
+            //Panel
+            panelSettings.Top = panelInfo.Height;
+            panelSettings.Left = 0;
+            panelSettings.Height = this.ClientSize.Height - panelInfo.Height;
+            panelSettings.Width = this.ClientSize.Width;
+
+            //Source label
+            lblSettingsSource.Top = draw_top;
+            draw_top = draw_top + lblSettingsSource.Height;
+
+            //Source Button
+            cmdSettingsSource.Width = panelSettings.Width - (2 * cmdSettingsSource.Left);
+            cmdSettingsSource.Top = draw_top;
+            cmdSettingsSource.Left = 20;
+
+            //Using graphics, set the size of the source button depending on the height of the text
+            using (Graphics cg = CreateGraphics())
+            {
+
+                //Measure the size of the text on the button
+                SizeF size = cg.MeasureString(cmdSettingsSource.Text, cmdSettingsSource.Font, cmdSettingsSource.Width);
+
+                //Set the button height to the height of the text
+                cmdSettingsSource.Height = (int)size.Height + 10;
+
+                //Move draw top down
+                draw_top = draw_top + cmdSettingsSource.Height + 20;
+            }
+
+            //ABOUT
+            lblSettingsAbout.Top = draw_top;
+            draw_top = draw_top + lblSettingsAbout.Height;
+
+            lblSettingsAboutInfo.Top = draw_top;
+            lblSettingsAboutInfo.Left = 20;
+
         }
 
         //=============================================================
@@ -419,6 +460,7 @@ namespace Photo_Memories
                     //If error, use last modified date as date
                     catch { image_date = file_info.LastWriteTime; }
 
+                    //Add file to image cache
                     images.Add(new image_item
                     {
                         fileinfo = file_info,
@@ -438,6 +480,9 @@ namespace Photo_Memories
                 images_cache_clear();
                 refresh_file_or_cache();
             }
+
+            //Write image cache to file
+            images_cache_write();
 
         }
 
@@ -524,6 +569,7 @@ namespace Photo_Memories
 
         private void images_cache_write()
         {
+
             //Declare variable used to write imagecache.json
             StreamWriter sw_cache;
 
@@ -625,16 +671,8 @@ namespace Photo_Memories
                 //Set the text for the button to change the source
                 cmdSettingsSource.Text = config.directory;
 
-                //Using graphics, set the size of the source button depending on the height of the text
-                using (Graphics cg = CreateGraphics())
-                {
-
-                    //Measure the size of the text on the button
-                    SizeF size = cg.MeasureString(cmdSettingsSource.Text, cmdSettingsSource.Font, cmdSettingsSource.Width);
-
-                    //Set the button height to the height of the text
-                    cmdSettingsSource.Height = (int)size.Height + 10;
-                }
+                //Update UI for settings
+                ui_settings();
             }
 
             //Otherwise, load the picture panl

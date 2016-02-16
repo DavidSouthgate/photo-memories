@@ -41,6 +41,8 @@
             this.cmdSettingsSource = new System.Windows.Forms.Button();
             this.lblSettingsSource = new System.Windows.Forms.Label();
             this.bgw_refresh_files = new System.ComponentModel.BackgroundWorker();
+            this.lblSettingsAbout = new System.Windows.Forms.Label();
+            this.lblSettingsAboutInfo = new System.Windows.Forms.Label();
             this.panelInfo.SuspendLayout();
             this.panelPicture.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -155,6 +157,8 @@
             // 
             // panelSettings
             // 
+            this.panelSettings.Controls.Add(this.lblSettingsAboutInfo);
+            this.panelSettings.Controls.Add(this.lblSettingsAbout);
             this.panelSettings.Controls.Add(this.cmdSettingsSource);
             this.panelSettings.Controls.Add(this.lblSettingsSource);
             this.panelSettings.Location = new System.Drawing.Point(23, 100);
@@ -171,7 +175,7 @@
             this.cmdSettingsSource.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdSettingsSource.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cmdSettingsSource.ForeColor = System.Drawing.Color.White;
-            this.cmdSettingsSource.Location = new System.Drawing.Point(20, 66);
+            this.cmdSettingsSource.Location = new System.Drawing.Point(20, 71);
             this.cmdSettingsSource.Name = "cmdSettingsSource";
             this.cmdSettingsSource.Size = new System.Drawing.Size(434, 46);
             this.cmdSettingsSource.TabIndex = 2;
@@ -197,6 +201,29 @@
             this.bgw_refresh_files.DoWork += new System.ComponentModel.DoWorkEventHandler(this.bgw_refresh_files_DoWork);
             this.bgw_refresh_files.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.bgw_refresh_files_ProgressChanged);
             this.bgw_refresh_files.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.bgw_refresh_files_RunWorkerCompleted);
+            // 
+            // lblSettingsAbout
+            // 
+            this.lblSettingsAbout.AutoSize = true;
+            this.lblSettingsAbout.BackColor = System.Drawing.Color.Black;
+            this.lblSettingsAbout.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblSettingsAbout.ForeColor = System.Drawing.Color.White;
+            this.lblSettingsAbout.Location = new System.Drawing.Point(19, 150);
+            this.lblSettingsAbout.Name = "lblSettingsAbout";
+            this.lblSettingsAbout.Size = new System.Drawing.Size(125, 46);
+            this.lblSettingsAbout.TabIndex = 3;
+            this.lblSettingsAbout.Text = "About";
+            // 
+            // lblSettingsAboutInfo
+            // 
+            this.lblSettingsAboutInfo.AutoSize = true;
+            this.lblSettingsAboutInfo.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblSettingsAboutInfo.ForeColor = System.Drawing.Color.White;
+            this.lblSettingsAboutInfo.Location = new System.Drawing.Point(22, 207);
+            this.lblSettingsAboutInfo.Name = "lblSettingsAboutInfo";
+            this.lblSettingsAboutInfo.Size = new System.Drawing.Size(286, 58);
+            this.lblSettingsAboutInfo.TabIndex = 4;
+            this.lblSettingsAboutInfo.Text = "Photo Memories\r\n(C) 2016 David Southgate";
             // 
             // frmMain
             // 
@@ -236,6 +263,8 @@
         private System.Windows.Forms.Label lblSettingsSource;
         private System.Windows.Forms.Button cmdRefresh;
         private System.ComponentModel.BackgroundWorker bgw_refresh_files;
+        private System.Windows.Forms.Label lblSettingsAbout;
+        private System.Windows.Forms.Label lblSettingsAboutInfo;
     }
 }
 
