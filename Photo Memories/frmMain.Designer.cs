@@ -199,7 +199,6 @@
             // bgw_refresh_files
             // 
             this.bgw_refresh_files.DoWork += new System.ComponentModel.DoWorkEventHandler(this.bgw_refresh_files_DoWork);
-            this.bgw_refresh_files.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.bgw_refresh_files_ProgressChanged);
             this.bgw_refresh_files.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.bgw_refresh_files_RunWorkerCompleted);
             // 
             // lblSettingsAbout

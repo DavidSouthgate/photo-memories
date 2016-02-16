@@ -21,15 +21,14 @@ namespace Photo_Memories
     {
 
         //String to store default directory
-        string default_dir = Environment.GetEnvironmentVariable("USERPROFILE") + @"\Pictures\";
+        string default_source = Environment.GetEnvironmentVariable("USERPROFILE") + @"\Pictures\";
 
-        bool refreshing_files = false;
-        bool refresh_try_cache = true;
-        int current_pic_index;                                      //Integer to store currently displayed picture index
+        bool refresh_try_cache = true;      //BOOLEAN flag. If true will attempt to load image metadata from cache.
+        int current_pic_index;              //Integer to store currently displayed picture index
 
         config_class config = new config_class();                   //Object used to store the config
         List<image_item> todays_images = new List<image_item>();    //List used to store todays images
-        List<image_item> images = new List<image_item>();           //Image item list which stores image details for images in
+        List<image_item> cache_images = new List<image_item>();     //Image item list which stores image details for images in
                                                                     //the directory
 
         public frmMain()
@@ -54,7 +53,7 @@ namespace Photo_Memories
         /// </summary>
         public class config_class
         {
-            public string directory { get; set; }
+            public string source { get; set; }
         }
 
         /// <summary>
@@ -346,9 +345,9 @@ namespace Photo_Memories
                 config = JsonConvert.DeserializeObject<config_class>(config_json);
 
                 //If the directory is empty, use the default
-                if(config.directory == "")
+                if(config.source == "")
                 {
-                    config.directory = default_dir;
+                    config.source = default_source;
                 }
 
                 //Close file
@@ -358,7 +357,7 @@ namespace Photo_Memories
             catch
             {
                 config = new config_class();
-                config.directory = default_dir;
+                config.source = default_source;
                 config_write();
             }
         }
@@ -415,8 +414,6 @@ namespace Photo_Memories
 
                 //Start background worker to refresh files
                 bgw_refresh_files.RunWorkerAsync();
-
-                refreshing_files = true;
             }
         }
 
@@ -431,7 +428,7 @@ namespace Photo_Memories
             {
 
                 //Get files with the valid file extension
-                var files = Directory.EnumerateFiles(config.directory,
+                var files = Directory.EnumerateFiles(config.source,
                                                      "*.*",
                                                      SearchOption.AllDirectories).Where(
                                                         s => s.ToLower().EndsWith(".png") ||
@@ -439,7 +436,7 @@ namespace Photo_Memories
                                                         s.ToLower().EndsWith(".jpg"));
 
                 //Clear images list
-                images.Clear();
+                cache_images.Clear();
 
                 //For each file in directory
                 foreach (var file in files)
@@ -461,7 +458,7 @@ namespace Photo_Memories
                     catch { image_date = file_info.LastWriteTime; }
 
                     //Add file to image cache
-                    images.Add(new image_item
+                    cache_images.Add(new image_item
                     {
                         fileinfo = file_info,
                         datetime = image_date
@@ -504,7 +501,7 @@ namespace Photo_Memories
                 string images_json = sr_cache.ReadToEnd();
 
                 //Load json object to images
-                images = JsonConvert.DeserializeObject<List<image_item>>(images_json);
+                cache_images = JsonConvert.DeserializeObject<List<image_item>>(images_json);
 
                 //Close file
                 sr_cache.Close();
@@ -535,7 +532,7 @@ namespace Photo_Memories
             todays_images.Clear();
 
             //For every image in images
-            foreach (var image in images)
+            foreach (var image in cache_images)
             {
 
                 //If image was taken 'on this day in history'
@@ -561,7 +558,7 @@ namespace Photo_Memories
         {
 
             //Clear old image cache
-            images.Clear();
+            cache_images.Clear();
 
             //Write this change to the cache file
             images_cache_write();
@@ -577,7 +574,7 @@ namespace Photo_Memories
             sw_cache = new StreamWriter(Application.StartupPath + @"\imagecache.json");
 
             //Generate JSON string from images
-            string images_json = JsonConvert.SerializeObject(images);
+            string images_json = JsonConvert.SerializeObject(cache_images);
 
             //Write JSON string to file
             sw_cache.Write(images_json);
@@ -605,11 +602,6 @@ namespace Photo_Memories
             }
         }
 
-        private void bgw_refresh_files_ProgressChanged(object sender, ProgressChangedEventArgs e)
-        {
-
-        }
-
         private void bgw_refresh_files_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
 
@@ -620,7 +612,6 @@ namespace Photo_Memories
             show_picture(0);
 
             cmdRefresh.Text = "Refresh";
-            refreshing_files = false;
             refresh_try_cache = true;
         }
 
@@ -644,12 +635,8 @@ namespace Photo_Memories
         /// </summary>
         private void cmdRefresh_Click(object sender, EventArgs e)
         {
-
-            //If not already refreshing, start refreshing
-            if (!refreshing_files)
-            {
-                refresh();
-            }
+            //Refresh the images cache
+            refresh();
         }
 
         /// <summary>
@@ -669,7 +656,7 @@ namespace Photo_Memories
                 lblDate.Text = "Settings";
 
                 //Set the text for the button to change the source
-                cmdSettingsSource.Text = config.directory;
+                cmdSettingsSource.Text = config.source;
 
                 //Update UI for settings
                 ui_settings();
@@ -703,10 +690,10 @@ namespace Photo_Memories
             if(fbd.SelectedPath != "")
             {
                 //Store the selected directory to the variable
-                config.directory = fbd.SelectedPath;
+                config.source = fbd.SelectedPath;
 
                 //Set the source button text to the new directory
-                cmdSettingsSource.Text = config.directory;
+                cmdSettingsSource.Text = config.source;
 
                 //Write config
                 config_write();
