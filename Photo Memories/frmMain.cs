@@ -344,8 +344,8 @@ namespace Photo_Memories
                 //Load json object to config
                 config = JsonConvert.DeserializeObject<config_class>(config_json);
 
-                //If the directory is empty, use the default
-                if(config.source == "")
+                //If the directory is empty or null, use the default
+                if(config.source == null || config.source == "")
                 {
                     config.source = default_source;
                 }
@@ -526,7 +526,7 @@ namespace Photo_Memories
         private void refresh_memories()
         {
             //DEV: today is a specific date for development
-            DateTime today = new DateTime(2016, 2, 16);
+            DateTime today = new DateTime(2016, 2, 17);
 
             //Clear todays images
             todays_images.Clear();
