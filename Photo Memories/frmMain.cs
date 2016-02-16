@@ -57,9 +57,6 @@ namespace Photo_Memories
             public string directory { get; set; }
         }
 
-
-
-
         /// <summary>
         /// Get the datetime from an image with a given path
         /// </summary>
@@ -502,6 +499,9 @@ namespace Photo_Memories
             }
         }
 
+        /// <summary>
+        /// Clear image cache stored    `
+        /// </summary>
         private void images_cache_clear()
         {
 
@@ -605,9 +605,26 @@ namespace Photo_Memories
             //If the picture panel is shown, load the settings panel
             if (panelPicture.Visible)
             {
+
+                //Display the settings panel
                 displayPanel(panelSettings);
+
+                //Set title of the panel
                 lblDate.Text = "Settings";
+
+                //Set the text for the button to change the source
                 cmdSettingsSource.Text = config.directory;
+
+                //Using graphics, set the size of the source button depending on the height of the text
+                using (Graphics cg = CreateGraphics())
+                {
+
+                    //Measure the size of the text on the button
+                    SizeF size = cg.MeasureString(cmdSettingsSource.Text, cmdSettingsSource.Font, cmdSettingsSource.Width);
+
+                    //Set the button height to the height of the text
+                    cmdSettingsSource.Height = (int)size.Height + 10;
+                }
             }
 
             //Otherwise, load the picture panl
