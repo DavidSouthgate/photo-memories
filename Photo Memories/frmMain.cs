@@ -131,9 +131,9 @@ namespace Photo_Memories
                 try
                 {
                     //Load the image into the picture box
-                    pictureBox1.ImageLocation = todays_images[current_pic_index].fileinfo.FullName;
-                    pictureBox1.Load();
-                    Debug.WriteLine(pictureBox1.ImageLocation);
+                    picDisplay.ImageLocation = todays_images[current_pic_index].fileinfo.FullName;
+                    picDisplay.Load();
+                    Debug.WriteLine(picDisplay.ImageLocation);
                 }
 
                 catch { }
@@ -143,7 +143,7 @@ namespace Photo_Memories
 
                 //Set label to display date of the picture in format:
                 //      Friday, 1 Janurary 2016 (12:00)
-                lblDate.Text = Convert.ToString(todays_images[current_pic_index].datetime.DayOfWeek) + ", " +
+                lblHead.Text = Convert.ToString(todays_images[current_pic_index].datetime.DayOfWeek) + ", " +
                                Convert.ToString(todays_images[current_pic_index].datetime.Day) + " " +
                                int_month_to_text(Convert.ToInt16(todays_images[current_pic_index].datetime.Month)) + " " +
                                Convert.ToString(todays_images[current_pic_index].datetime.Year) + 
@@ -174,10 +174,10 @@ namespace Photo_Memories
                 cmdPrevImg.Visible = false;
 
                 //Remove existing image from the picture box
-                pictureBox1.Image = null;
+                picDisplay.Image = null;
 
                 //Display message
-                lblDate.Text = "No memories to view today.";
+                lblHead.Text = "No memories to view today.";
             }
         }
 
@@ -198,7 +198,7 @@ namespace Photo_Memories
             {
 
                 //Output message that the program is loading 
-                lblDate.Text = "Loading...";
+                lblHead.Text = "Loading...";
 
                 //Start background worker to load images
                 bgw_refresh_files.RunWorkerAsync();
@@ -262,10 +262,10 @@ namespace Photo_Memories
             cmdNextImg.Top = this.ClientSize.Height / 2 - cmdNextImg.Height / 2 - panelInfo.Height;
 
             //Position picture box
-            pictureBox1.Top = 0;
-            pictureBox1.Left = 0;
-            pictureBox1.Height = panelPicture.Height;
-            pictureBox1.Width = panelPicture.Width;
+            picDisplay.Top = 0;
+            picDisplay.Left = 0;
+            picDisplay.Height = panelPicture.Height;
+            picDisplay.Width = panelPicture.Width;
 
             //Position info panel
             panelInfo.Top = 0;
@@ -484,8 +484,8 @@ namespace Photo_Memories
             catch
             {
                 MessageBox.Show("Error (1) Loading Directory. Does it exist?");
-                pictureBox1.Image = null;
-                pictureBox1.Load();
+                picDisplay.Image = null;
+                picDisplay.Load();
 
                 //Purge cache and reload
                 images_cache_clear();
@@ -667,7 +667,7 @@ namespace Photo_Memories
                 displayPanel(panelSettings);
 
                 //Set title of the panel
-                lblDate.Text = "Settings";
+                lblHead.Text = "Settings";
 
                 //Set the text for the button to change the source
                 cmdSettingsSource.Text = config.source;
