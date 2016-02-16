@@ -31,7 +31,6 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmMain));
             this.panelInfo = new System.Windows.Forms.Panel();
             this.cmdRefresh = new System.Windows.Forms.Button();
-            this.cmdSettings = new System.Windows.Forms.Button();
             this.lblHead = new System.Windows.Forms.Label();
             this.panelPicture = new System.Windows.Forms.Panel();
             this.cmdNextImg = new System.Windows.Forms.Button();
@@ -43,6 +42,7 @@
             this.cmdSettingsSource = new System.Windows.Forms.Button();
             this.lblSettingsSource = new System.Windows.Forms.Label();
             this.bgw_refresh_files = new System.ComponentModel.BackgroundWorker();
+            this.cmdSettings = new System.Windows.Forms.Button();
             this.panelInfo.SuspendLayout();
             this.panelPicture.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picDisplay)).BeginInit();
@@ -52,12 +52,12 @@
             // panelInfo
             // 
             this.panelInfo.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(23)))), ((int)(((byte)(23)))), ((int)(((byte)(24)))));
-            this.panelInfo.Controls.Add(this.cmdRefresh);
             this.panelInfo.Controls.Add(this.cmdSettings);
+            this.panelInfo.Controls.Add(this.cmdRefresh);
             this.panelInfo.Controls.Add(this.lblHead);
-            this.panelInfo.Location = new System.Drawing.Point(0, 0);
+            this.panelInfo.Location = new System.Drawing.Point(1, 0);
             this.panelInfo.Name = "panelInfo";
-            this.panelInfo.Size = new System.Drawing.Size(353, 41);
+            this.panelInfo.Size = new System.Drawing.Size(396, 41);
             this.panelInfo.TabIndex = 4;
             // 
             // cmdRefresh
@@ -69,7 +69,7 @@
             this.cmdRefresh.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdRefresh.Font = new System.Drawing.Font("Microsoft Sans Serif", 4F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cmdRefresh.ForeColor = System.Drawing.Color.White;
-            this.cmdRefresh.Location = new System.Drawing.Point(265, 0);
+            this.cmdRefresh.Location = new System.Drawing.Point(308, 2);
             this.cmdRefresh.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.cmdRefresh.Name = "cmdRefresh";
             this.cmdRefresh.Size = new System.Drawing.Size(42, 41);
@@ -77,23 +77,6 @@
             this.cmdRefresh.Text = "Refresh";
             this.cmdRefresh.UseVisualStyleBackColor = true;
             this.cmdRefresh.Click += new System.EventHandler(this.cmdRefresh_Click);
-            // 
-            // cmdSettings
-            // 
-            this.cmdSettings.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("cmdSettings.BackgroundImage")));
-            this.cmdSettings.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.cmdSettings.FlatAppearance.BorderSize = 0;
-            this.cmdSettings.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(76)))), ((int)(((byte)(76)))), ((int)(((byte)(76)))));
-            this.cmdSettings.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(53)))), ((int)(((byte)(53)))), ((int)(((byte)(53)))));
-            this.cmdSettings.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.cmdSettings.ForeColor = System.Drawing.Color.White;
-            this.cmdSettings.Location = new System.Drawing.Point(311, 0);
-            this.cmdSettings.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
-            this.cmdSettings.Name = "cmdSettings";
-            this.cmdSettings.Size = new System.Drawing.Size(42, 41);
-            this.cmdSettings.TabIndex = 1;
-            this.cmdSettings.UseVisualStyleBackColor = true;
-            this.cmdSettings.Click += new System.EventHandler(this.cmdSettings_Click);
             // 
             // lblHead
             // 
@@ -110,10 +93,10 @@
             this.panelPicture.Controls.Add(this.cmdNextImg);
             this.panelPicture.Controls.Add(this.cmdPrevImg);
             this.panelPicture.Controls.Add(this.picDisplay);
-            this.panelPicture.Location = new System.Drawing.Point(99, 94);
+            this.panelPicture.Location = new System.Drawing.Point(36, 71);
             this.panelPicture.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.panelPicture.Name = "panelPicture";
-            this.panelPicture.Size = new System.Drawing.Size(321, 183);
+            this.panelPicture.Size = new System.Drawing.Size(79, 43);
             this.panelPicture.TabIndex = 5;
             // 
             // cmdNextImg
@@ -121,7 +104,7 @@
             this.cmdNextImg.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(102)))), ((int)(((byte)(102)))), ((int)(((byte)(102)))));
             this.cmdNextImg.FlatAppearance.BorderSize = 0;
             this.cmdNextImg.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.cmdNextImg.Location = new System.Drawing.Point(301, 73);
+            this.cmdNextImg.Location = new System.Drawing.Point(59, 0);
             this.cmdNextImg.Name = "cmdNextImg";
             this.cmdNextImg.Size = new System.Drawing.Size(20, 40);
             this.cmdNextImg.TabIndex = 5;
@@ -135,7 +118,7 @@
             this.cmdPrevImg.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(102)))), ((int)(((byte)(102)))), ((int)(((byte)(102)))));
             this.cmdPrevImg.FlatAppearance.BorderSize = 0;
             this.cmdPrevImg.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.cmdPrevImg.Location = new System.Drawing.Point(0, 73);
+            this.cmdPrevImg.Location = new System.Drawing.Point(0, 0);
             this.cmdPrevImg.Name = "cmdPrevImg";
             this.cmdPrevImg.Size = new System.Drawing.Size(20, 40);
             this.cmdPrevImg.TabIndex = 4;
@@ -146,10 +129,10 @@
             // 
             // picDisplay
             // 
-            this.picDisplay.Location = new System.Drawing.Point(25, 26);
+            this.picDisplay.Location = new System.Drawing.Point(28, 8);
             this.picDisplay.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.picDisplay.Name = "picDisplay";
-            this.picDisplay.Size = new System.Drawing.Size(260, 122);
+            this.picDisplay.Size = new System.Drawing.Size(21, 23);
             this.picDisplay.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.picDisplay.TabIndex = 0;
             this.picDisplay.TabStop = false;
@@ -160,10 +143,10 @@
             this.panelSettings.Controls.Add(this.lblSettingsAbout);
             this.panelSettings.Controls.Add(this.cmdSettingsSource);
             this.panelSettings.Controls.Add(this.lblSettingsSource);
-            this.panelSettings.Location = new System.Drawing.Point(27, 144);
+            this.panelSettings.Location = new System.Drawing.Point(36, 171);
             this.panelSettings.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.panelSettings.Name = "panelSettings";
-            this.panelSettings.Size = new System.Drawing.Size(321, 287);
+            this.panelSettings.Size = new System.Drawing.Size(124, 181);
             this.panelSettings.TabIndex = 6;
             this.panelSettings.Visible = false;
             // 
@@ -228,18 +211,33 @@
             this.bgw_refresh_files.DoWork += new System.ComponentModel.DoWorkEventHandler(this.bgw_refresh_files_DoWork);
             this.bgw_refresh_files.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.bgw_refresh_files_RunWorkerCompleted);
             // 
+            // cmdSettings
+            // 
+            this.cmdSettings.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("cmdSettings.BackgroundImage")));
+            this.cmdSettings.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.cmdSettings.FlatAppearance.BorderSize = 0;
+            this.cmdSettings.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(76)))), ((int)(((byte)(76)))), ((int)(((byte)(76)))));
+            this.cmdSettings.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(53)))), ((int)(((byte)(53)))), ((int)(((byte)(53)))));
+            this.cmdSettings.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.cmdSettings.ForeColor = System.Drawing.Color.White;
+            this.cmdSettings.Location = new System.Drawing.Point(354, 0);
+            this.cmdSettings.Margin = new System.Windows.Forms.Padding(2);
+            this.cmdSettings.Name = "cmdSettings";
+            this.cmdSettings.Size = new System.Drawing.Size(42, 41);
+            this.cmdSettings.TabIndex = 3;
+            this.cmdSettings.UseVisualStyleBackColor = true;
+            // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
-            this.ClientSize = new System.Drawing.Size(370, 531);
+            this.ClientSize = new System.Drawing.Size(396, 531);
             this.Controls.Add(this.panelSettings);
             this.Controls.Add(this.panelPicture);
             this.Controls.Add(this.panelInfo);
             this.KeyPreview = true;
             this.Name = "frmMain";
-            this.Text = "Form1";
             this.Load += new System.EventHandler(this.frmMain_Load);
             this.Resize += new System.EventHandler(this.frmMain_Resize);
             this.panelInfo.ResumeLayout(false);
@@ -255,7 +253,6 @@
         #endregion
         private System.Windows.Forms.Panel panelInfo;
         private System.Windows.Forms.Label lblHead;
-        private System.Windows.Forms.Button cmdSettings;
         private System.Windows.Forms.Panel panelPicture;
         private System.Windows.Forms.PictureBox picDisplay;
         private System.Windows.Forms.Button cmdNextImg;
@@ -267,6 +264,7 @@
         private System.ComponentModel.BackgroundWorker bgw_refresh_files;
         private System.Windows.Forms.Label lblSettingsAbout;
         private System.Windows.Forms.Label lblSettingsAboutInfo;
+        private System.Windows.Forms.Button cmdSettings;
     }
 }
 
