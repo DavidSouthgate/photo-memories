@@ -595,8 +595,8 @@ namespace Photo_Memories
         /// </summary>
         private void refresh_memories()
         {
-            //DEV: today is a specific date for development
-            DateTime today = new DateTime(2016, 2, 16);
+            //Get today as datetime
+            DateTime today = DateTime.Today;
 
             //Clear todays images
             todays_images.Clear();
