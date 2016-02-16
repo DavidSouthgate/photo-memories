@@ -300,6 +300,12 @@ namespace Photo_Memories
                 //Load json object to config
                 config = JsonConvert.DeserializeObject<config_class>(config_json);
 
+                //If the directory is empty, use the default
+                if(config.directory == "")
+                {
+                    config.directory = default_dir;
+                }
+
                 //Close file
                 sr_config.Close();
             }
