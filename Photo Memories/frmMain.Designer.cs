@@ -102,9 +102,8 @@
             this.lblHead.Location = new System.Drawing.Point(18, 14);
             this.lblHead.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblHead.Name = "lblHead";
-            this.lblHead.Size = new System.Drawing.Size(93, 30);
+            this.lblHead.Size = new System.Drawing.Size(0, 30);
             this.lblHead.TabIndex = 0;
-            this.lblHead.Text = "lblDate";
             // 
             // panelPicture
             // 

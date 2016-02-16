@@ -37,6 +37,7 @@ namespace Photo_Memories
 
             //Set the minimum size that the form can be
             this.MinimumSize = new Size(370, 570);
+            this.Text = this.ProductName;
         }
 
         /// <summary>
@@ -139,7 +140,7 @@ namespace Photo_Memories
                 catch { }
 
                 //Set window title to the filename of the picture
-                this.Text = todays_images[current_pic_index].fileinfo.Name;
+                this.Text = todays_images[current_pic_index].fileinfo.Name + " - " + this.ProductName;
 
                 //Set label to display date of the picture in format:
                 //      Friday, 1 Janurary 2016 (12:00)
@@ -540,7 +541,7 @@ namespace Photo_Memories
         private void refresh_memories()
         {
             //DEV: today is a specific date for development
-            DateTime today = new DateTime(2016, 2, 17);
+            DateTime today = new DateTime(2016, 2, 16);
 
             //Clear todays images
             todays_images.Clear();
