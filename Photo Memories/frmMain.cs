@@ -170,6 +170,10 @@ namespace Photo_Memories
             else
             {
 
+                //Hide the navigation buttons
+                cmdNextImg.Visible = false;
+                cmdPrevImg.Visible = false;
+
                 //Remove existing image from the picture box
                 pictureBox1.Image = null;
 

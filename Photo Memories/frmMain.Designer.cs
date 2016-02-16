@@ -126,6 +126,7 @@
             this.cmdNextImg.TabIndex = 5;
             this.cmdNextImg.Text = ">";
             this.cmdNextImg.UseVisualStyleBackColor = false;
+            this.cmdNextImg.Visible = false;
             this.cmdNextImg.Click += new System.EventHandler(this.cmdNextImg_Click);
             // 
             // cmdPrevImg
@@ -140,6 +141,7 @@
             this.cmdPrevImg.TabIndex = 4;
             this.cmdPrevImg.Text = "<";
             this.cmdPrevImg.UseVisualStyleBackColor = false;
+            this.cmdPrevImg.Visible = false;
             this.cmdPrevImg.Click += new System.EventHandler(this.cmdPrevImg_Click);
             // 
             // pictureBox1
@@ -155,9 +157,9 @@
             // 
             this.panelSettings.Controls.Add(this.cmdSettingsSource);
             this.panelSettings.Controls.Add(this.lblSettingsSource);
-            this.panelSettings.Location = new System.Drawing.Point(23, 85);
+            this.panelSettings.Location = new System.Drawing.Point(23, 100);
             this.panelSettings.Name = "panelSettings";
-            this.panelSettings.Size = new System.Drawing.Size(481, 457);
+            this.panelSettings.Size = new System.Drawing.Size(481, 442);
             this.panelSettings.TabIndex = 6;
             this.panelSettings.Visible = false;
             // 
