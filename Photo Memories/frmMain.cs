@@ -38,6 +38,8 @@ namespace Photo_Memories
 
             //Set the minimum size that the form can be
             this.MinimumSize = new Size(370, 570);
+
+            //Set the window title
             this.Text = this.ProductName;
         }
 
@@ -66,7 +68,6 @@ namespace Photo_Memories
         private DateTime GetDateTakenFromImage(string path)
         {
             Regex r = new Regex(":");
-
             using (FileStream fs = new FileStream(path, FileMode.Open, FileAccess.Read))
             using (Image myImage = Image.FromStream(fs, false, false))
             {
@@ -213,6 +214,8 @@ namespace Photo_Memories
         /// </summary>
         private void frmMain_Resize(object sender, EventArgs e)
         {
+
+            //Rearrange ui elements on the form using the current form size
             ui();
         }
 
@@ -274,6 +277,7 @@ namespace Photo_Memories
             panelInfo.Left = 0;
             panelInfo.Width = this.ClientSize.Width;
 
+            //Settings page ui
             ui_settings();
         }
 
@@ -721,6 +725,14 @@ namespace Photo_Memories
                 //Refresh files
                 refresh();
             }
+        }
+
+        /// <summary>
+        /// When about information is clicked. Open website.
+        /// </summary>
+        private void lblSettingsAboutInfo_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            System.Diagnostics.Process.Start("https://davidsouthgate.co.uk/projects/photomemories/");
         }
     }
 }

@@ -37,12 +37,12 @@
             this.cmdPrevImg = new System.Windows.Forms.Button();
             this.picDisplay = new System.Windows.Forms.PictureBox();
             this.panelSettings = new System.Windows.Forms.Panel();
-            this.lblSettingsAboutInfo = new System.Windows.Forms.Label();
             this.lblSettingsAbout = new System.Windows.Forms.Label();
             this.cmdSettingsSource = new System.Windows.Forms.Button();
             this.lblSettingsSource = new System.Windows.Forms.Label();
             this.bgw_refresh_files = new System.ComponentModel.BackgroundWorker();
             this.cmdSettings = new System.Windows.Forms.Button();
+            this.lblSettingsAboutInfo = new System.Windows.Forms.LinkLabel();
             this.panelInfo.SuspendLayout();
             this.panelPicture.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picDisplay)).BeginInit();
@@ -150,18 +150,6 @@
             this.panelSettings.TabIndex = 6;
             this.panelSettings.Visible = false;
             // 
-            // lblSettingsAboutInfo
-            // 
-            this.lblSettingsAboutInfo.AutoSize = true;
-            this.lblSettingsAboutInfo.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblSettingsAboutInfo.ForeColor = System.Drawing.Color.White;
-            this.lblSettingsAboutInfo.Location = new System.Drawing.Point(15, 135);
-            this.lblSettingsAboutInfo.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.lblSettingsAboutInfo.Name = "lblSettingsAboutInfo";
-            this.lblSettingsAboutInfo.Size = new System.Drawing.Size(64, 20);
-            this.lblSettingsAboutInfo.TabIndex = 4;
-            this.lblSettingsAboutInfo.Text = "ABOUT";
-            // 
             // lblSettingsAbout
             // 
             this.lblSettingsAbout.AutoSize = true;
@@ -186,7 +174,7 @@
             this.cmdSettingsSource.Location = new System.Drawing.Point(13, 46);
             this.cmdSettingsSource.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.cmdSettingsSource.Name = "cmdSettingsSource";
-            this.cmdSettingsSource.Size = new System.Drawing.Size(289, 30);
+            this.cmdSettingsSource.Size = new System.Drawing.Size(100, 30);
             this.cmdSettingsSource.TabIndex = 2;
             this.cmdSettingsSource.Text = "Save";
             this.cmdSettingsSource.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -228,6 +216,22 @@
             this.cmdSettings.UseVisualStyleBackColor = true;
             this.cmdSettings.Click += new System.EventHandler(this.cmdSettings_Click);
             // 
+            // lblSettingsAboutInfo
+            // 
+            this.lblSettingsAboutInfo.ActiveLinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.lblSettingsAboutInfo.AutoSize = true;
+            this.lblSettingsAboutInfo.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblSettingsAboutInfo.ForeColor = System.Drawing.Color.White;
+            this.lblSettingsAboutInfo.LinkColor = System.Drawing.Color.White;
+            this.lblSettingsAboutInfo.Location = new System.Drawing.Point(15, 128);
+            this.lblSettingsAboutInfo.Name = "lblSettingsAboutInfo";
+            this.lblSettingsAboutInfo.Size = new System.Drawing.Size(64, 20);
+            this.lblSettingsAboutInfo.TabIndex = 5;
+            this.lblSettingsAboutInfo.TabStop = true;
+            this.lblSettingsAboutInfo.Text = "ABOUT";
+            this.lblSettingsAboutInfo.VisitedLinkColor = System.Drawing.Color.White;
+            this.lblSettingsAboutInfo.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lblSettingsAboutInfo_LinkClicked);
+            // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -264,8 +268,8 @@
         private System.Windows.Forms.Button cmdRefresh;
         private System.ComponentModel.BackgroundWorker bgw_refresh_files;
         private System.Windows.Forms.Label lblSettingsAbout;
-        private System.Windows.Forms.Label lblSettingsAboutInfo;
         private System.Windows.Forms.Button cmdSettings;
+        private System.Windows.Forms.LinkLabel lblSettingsAboutInfo;
     }
 }
 
