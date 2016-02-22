@@ -278,7 +278,7 @@ namespace Photo_Memories
             //If right key pressed, show next picture
             else if (keyData == Keys.Right)
             {
-                show_picture(-1);
+                show_picture(1);
                 return true;
             }
 
